@@ -7,11 +7,14 @@
 
 char *args[5];
 
-//helper function to make sure spaces are correct
+//helper function to make sure spaces are correct + remove tab and newline
 char *strip_spaces(char *line){
     int i = 0;
     int c = strlen(line)-1;
     while(line[i]==' '){
+        if(line[i]=='\t' || line[i]=='\n'){
+            line[i]=' ';
+        }
         i++;
     }
     while(line[c]==' '){
@@ -24,7 +27,7 @@ char *strip_spaces(char *line){
 char ** parse_args(char *line, char *sep){
     char *copy = line;
     int n = 0;
-    int c = c;
+    int c = 0;
     for (int i = 0; i < strlen(line);i++){
         if(line[i] == *sep){
             c++;
@@ -41,10 +44,33 @@ char ** parse_args(char *line, char *sep){
     return(args);
 }
 
+char ** redirect_in(char ** args){
+    for (int i = 0; args[i] != NULL; i++){
+        if(strcmp(args[i],"<") == 0){
+            int fd = open(args[i+1],O_RDONLY,0644);
+            dup2(fd,0);
+            args[i]=NULL;
+        }
+    }
+    return(args);
+}
+//finicky...
+char ** redirect_out(char ** args){
+    for (int i = 0; args[i] != NULL; i++){
+        if(strcmp(args[i],">") == 0){
+            int fd = open(args[i+1],O_TRUNC|O_RDWR|O_CREAT, 0644);
+            dup2(fd,1);
+            args[i]=NULL;
+        }
+    }
+    return(args);
+}
+
 void run_process(char *cmd){
     //only works when printing? not sure why...
     printf("%s\n",cmd);
-    char ** args = parse_args(cmd," ");
+    char **args = parse_args(cmd," ");
+    //edge cases for exit and cd
     if (strcmp(args[0],"exit") == 0){
         exit(0);
     }
@@ -61,15 +87,19 @@ void run_process(char *cmd){
             }
         }
         else{
+            args=redirect_in(args);
+            args=redirect_out(args);
             int n = execvp(args[0],args);
         }
     } 
     free(args);
 }
 
+
 int main(){
     char line[256];
     while(1){
+        //making prompt
         printf("\nhermit-crab: sasha$ ");
         if (fgets(line,256,stdin)!=NULL){
             int len = strlen(line);
@@ -78,14 +108,13 @@ int main(){
                 line[len] = '\0';
             }
         }
-        //running commands (for now). will need to sep by ; in the future, so making a separate function
+        //run commands
         char ** args = parse_args(line, ";");
         for (int i = 0; args[i]!=NULL; i++){
             args[i] = strip_spaces(args[i]);
             run_process(args[i]);
         }
-        free(args);
     }
-    printf("\n");
+    free(args);
     return(0);
 }
