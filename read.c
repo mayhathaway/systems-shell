@@ -7,6 +7,7 @@
 
 char *args[5];
 
+//helper function to make sure spaces are correct
 char *strip_spaces(char *line){
     int i = 0;
     int c = strlen(line)-1;
@@ -80,6 +81,7 @@ int main(){
         //running commands (for now). will need to sep by ; in the future, so making a separate function
         char ** args = parse_args(line, ";");
         for (int i = 0; args[i]!=NULL; i++){
+            args[i] = strip_spaces(args[i]);
             run_process(args[i]);
         }
         free(args);
