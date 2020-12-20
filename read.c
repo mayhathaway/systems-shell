@@ -7,20 +7,43 @@
 
 char *args[5];
 
-char ** parse_args(char *line){
+char *strip_spaces(char *line){
+    int i = 0;
+    int c = strlen(line)-1;
+    while(line[i]==' '){
+        i++;
+    }
+    while(line[c]==' '){
+        line[c]=0;
+        c--;
+    }
+    return(line+i);
+}
+
+char ** parse_args(char *line, char *sep){
     char *copy = line;
     int n = 0;
-    char **args = malloc(sizeof(char *));
+    int c = c;
+    for (int i = 0; i < strlen(line);i++){
+        if(line[i] == *sep){
+            c++;
+        }
+    }
+    char **args = malloc((c+1)*sizeof(char *));
+    args[c] = NULL;
     while(copy){
+        copy=strip_spaces(copy);
         args[n]=malloc(sizeof(char));
-        args[n]=strsep(&copy, " ");
+        args[n]=strsep(&copy, sep);
         n++;
     }
     return(args);
 }
 
 void run_process(char *cmd){
-    char ** args = parse_args(cmd);
+    //only works when printing? not sure why...
+    printf("%s\n",cmd);
+    char ** args = parse_args(cmd," ");
     if (strcmp(args[0],"exit") == 0){
         exit(0);
     }
@@ -40,6 +63,7 @@ void run_process(char *cmd){
             int n = execvp(args[0],args);
         }
     } 
+    free(args);
 }
 
 int main(){
@@ -54,7 +78,7 @@ int main(){
             }
         }
         //running commands (for now). will need to sep by ; in the future, so making a separate function
-        char **args = parse_args(line);
+        char ** args = parse_args(line, ";");
         for (int i = 0; args[i]!=NULL; i++){
             run_process(args[i]);
         }
