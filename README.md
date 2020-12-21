@@ -1,7 +1,5 @@
 <b>Hermit Crab Shell<b>
-
 by Sasha Wald and May Hathaway
-
 TNPG: Team Hermit Crab!
 
 <b>Features:</b>
