@@ -7,16 +7,25 @@
 
 char *strip_spaces(char *line){
     int i = 0;
-    int c = strlen(line)-1;
+    int back_count = strlen(line)-1;
+    //broken for trailing whitespaces...?
+    /*for (int j = 0; j < strlen(line); j++){
+        if(line[j]=='\t' || line[j]=='\n'){
+            line[j]=' ';
+        }
+        if(line[j]==' '){
+            i++;
+        }
+    }*/
     while(line[i]==' '){
         if(line[i]=='\t' || line[i]=='\n'){
             line[i]=' ';
         }
         i++;
     }
-    while(line[c]==' '){
-        line[c]=0;
-        c--;
+    while(line[back_count]==' '){
+        line[back_count]=0;
+        back_count--;
     }
     return(line+i);
 }
