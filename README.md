@@ -1,8 +1,8 @@
-<b>Hermit Crab Shell<b>
-by Sasha Wald and May Hathaway
-TNPG: Team Hermit Crab!
+# Hermit Crab Shell
+##### by Sasha Wald and May Hathaway
+##### TNPG: Team Hermit Crab!
 
-<b>Features:</b>
+## Features:
 - Executes commands of up to 255 chars!
   - Executes commands within a child process
   - Commands may be input one at a time, or separated by a semicolon (;)
@@ -10,5 +10,5 @@ TNPG: Team Hermit Crab!
 - Allows you to redirect using < and >
 - Allows piping with |
 
-<b>Bugs:</b>
+## Bugs:
 - Sasha found an issue where the run_process function (which executes commands) would only function correctly when the user's inputted command was first printed. 
