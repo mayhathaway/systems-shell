@@ -1,6 +1,6 @@
-<b>Hermit Crab Shell<b>
-by Sasha Wald and May Hathaway
-TNPG: Team Hermit Crab!
+<b>Hermit Crab Shell<b>\n
+by Sasha Wald and May Hathaway\n
+TNPG: Team Hermit Crab!\n
 
 <b>Features:</b>
 - Executes commands of up to 255 chars!
