@@ -51,7 +51,7 @@ char ** redirect_in(char ** args){
     }
     return(args);
 }
-//finicky...
+
 char ** redirect_out(char ** args){
     for (int i = 0; args[i] != NULL; i++){
         if(strcmp(args[i],">") == 0){
@@ -62,6 +62,33 @@ char ** redirect_out(char ** args){
     }
     return(args);
 }
+
+/*void run_pipe(char ** args){
+    int j=-1;
+    for (int i = 0; args [i] != NULL; i++){
+        if(strcmp(args[i],"|") == 0){
+            j=i;
+        }
+    }
+    if (j > 0){
+        int fds[2];
+        pipe(fds);
+        int f = fork();
+        if (f==0){//write
+            close(fds[0]);
+            dup2(fds[1],1);
+            args[j]=NULL;
+            printf("%s\n",args[0]);
+            //execvp(args[0],args);
+        }
+        else{//read
+            close(fds[1]);
+            dup2(fds[0],0);
+            //execvp(args[i+1],&args[i+2]);
+        } 
+    }
+
+}*/
 
 void run_process(char *cmd){
     //only works when printing? not sure why...
