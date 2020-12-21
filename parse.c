@@ -8,6 +8,8 @@
 char *strip_spaces(char *line){
     int i = 0;
     int back_count = strlen(line)-1;
+    int back_count_2 = back_count;
+    int back_count_3 = back_count;
     //broken for trailing whitespaces...?
     /*for (int j = 0; j < strlen(line); j++){
         if(line[j]=='\t' || line[j]=='\n'){
@@ -26,6 +28,14 @@ char *strip_spaces(char *line){
     while(line[back_count]==' '){
         line[back_count]=0;
         back_count--;
+    }
+    while(line[back_count_2]=='\t'){
+        line[back_count_2]=0;
+        back_count_2--;
+    }
+    while(line[back_count_2]=='\n'){
+        line[back_count_2]=0;
+        back_count_2--;
     }
     return(line+i);
 }
