@@ -14,6 +14,7 @@
 - Sasha found an issue where the run_process function (which executes commands) would only function correctly when the user's inputted command was first printed. This is visible when running commands.
 - Sasha attempted creating run_pipe - was able to get a function that forks and creates an unnamed pipe, but ran into a looping error which prevented the "write" side of the pipe from working. Tried many fixes but not sure where this function went wrong. Ending up switching to using popen which was much quicker!
 - Pipe function is somewhat vulnerable. Doing something like $ls | wc ; echo hello will work, but the results are printed two times. It does support additional spaces, but not exit/cd commands
+- After running a lot of commands, some commands may need to be entered twice (?)
 
 ## Files:
 parse.c
