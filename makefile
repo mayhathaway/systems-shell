@@ -1,9 +1,5 @@
-read: read.o
-	gcc -o main read.c
-
-clean:
-	rm *.o
-	rm main
+main: main.o
+	gcc main.c parse.h parse.c -o main
 
 run:
 	./main
