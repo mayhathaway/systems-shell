@@ -63,6 +63,14 @@ char ** redirect_out(char ** args){
     return(args);
 }
 
+void run_pipe(char *line){
+    FILE *fp;
+    fp = popen(line, "w");
+    pclose(fp);
+    printf("\n");
+}
+
+// (attempt?) at pipe function that didn't work
 /*void run_pipe(char ** args){
     int j=-1;
     for (int i = 0; args [i] != NULL; i++){
