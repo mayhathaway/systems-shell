@@ -65,8 +65,12 @@ char ** redirect_out(char ** args){
 
 void run_pipe(char *line){
     FILE *fp;
+    int status;
     fp = popen(line, "w");
-    pclose(fp);
+    status = pclose(fp);
+    if (status == -1){
+        strerror(WEXITSTATUS(status));
+    }
     printf("\n");
 }
 
