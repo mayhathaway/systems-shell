@@ -12,3 +12,10 @@
 
 ## Bugs:
 - Sasha found an issue where the run_process function (which executes commands) would only function correctly when the user's inputted command was first printed. 
+
+## Files:
+parse.c
+- handles line parsing functions, redirection and piping functions
+
+main.c
+- handles user input + creating shell prompt
