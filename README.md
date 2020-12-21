@@ -18,7 +18,7 @@
 ## Files:
 parse.c
 - handles line parsing functions, redirection and piping functions
-      ```
+ ```
       char *strip_spaces(char *line)
       Function: strips white space, tabs and newlines from the function to ensure it runs correctly
       
@@ -36,6 +36,6 @@ parse.c
       
       void run_process(char *cmd)
       Function: forks and runs command in a child process (unless a pipe is used). Contain exit cases for cd and exit functions
-
+```
 main.c
 - handles user input + creating shell prompt
