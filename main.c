@@ -20,11 +20,27 @@ int main(){
                 line[len] = '\0';
             }
         }
+        //extra code for pipes
+        char nl[256];
+        strcpy(nl,line);
+        char *pipecopy = nl;
+        int count = 1;
+        while(*pipecopy){
+            if(*pipecopy == '|'){
+                count++;
+            }
+            *pipecopy++;
+        }
         //run commands
         char ** args = parse_args(line, ";");
         for (int i = 0; args[i]!=NULL; i++){
-            args[i] = strip_spaces(args[i]);
-            run_process(args[i]);
+            if(count>1){
+                run_pipe(nl);
+            }
+            else{
+                args[i] = strip_spaces(args[i]);
+                run_process(args[i]);
+            }
         }
     }
     free(args);
